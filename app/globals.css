@@ -42,10 +42,16 @@ body {
   50%       { opacity: 0.6; }
 }
 
-.animate-fade-up   { animation: fadeUp 0.45s cubic-bezier(.22,.68,0,1.2) both; }
-.animate-fade-in   { animation: fadeIn 0.3s ease both; }
-.animate-bar-grow  { animation: barGrow 0.8s cubic-bezier(.22,.68,0,1.2) both; }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.animate-fade-up    { animation: fadeUp 0.45s cubic-bezier(.22,.68,0,1.2) both; }
+.animate-fade-in    { animation: fadeIn 0.3s ease both; }
+.animate-bar-grow   { animation: barGrow 0.8s cubic-bezier(.22,.68,0,1.2) both; }
 .animate-slide-left { animation: slideInLeft 0.35s ease both; }
+.animate-spin       { animation: spin 0.7s linear infinite; }
 
 /* stagger helpers */
 .delay-50  { animation-delay: 50ms; }
@@ -59,3 +65,18 @@ body {
 .delay-500 { animation-delay: 500ms; }
 .delay-600 { animation-delay: 600ms; }
 .delay-700 { animation-delay: 700ms; }
+
+/* Sticky table headers */
+.table-sticky thead th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: #fafafa;
+}
+
+/* Focus ring standard */
+.focus-ring {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(24, 24, 27, 0.12);
+  border-color: rgb(113 113 122);
+}

@@ -20,8 +20,11 @@ export default async function EditImagePage({
   if (!image) notFound()
 
   return (
-    <div className="max-w-lg">
-      <h1 className="mb-6 text-2xl font-semibold text-zinc-900">Edit Image</h1>
+    <div className="animate-fade-up max-w-lg">
+      <div className="mb-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Images</p>
+        <h1 className="mt-0.5 text-2xl font-bold text-zinc-900">Edit Image</h1>
+      </div>
       <EditImageForm image={image} />
     </div>
   )

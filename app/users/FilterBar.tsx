@@ -19,19 +19,23 @@ export default function FilterBar({ filters }: { filters: Filter[] }) {
   }
 
   return (
-    <div className="mb-5 flex flex-wrap gap-2 animate-fade-up">
+    <div className="mb-5 flex flex-wrap items-center gap-3 animate-fade-up">
       {filters.map((f) => (
-        <div key={f.key} className="flex items-center gap-1.5">
-          <span className="text-xs font-medium text-zinc-400">{f.label}:</span>
-          <div className="flex overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-sm text-xs">
+        <div key={f.key} className="flex items-center gap-2">
+          <span className="text-xs font-semibold uppercase tracking-widest text-zinc-400 whitespace-nowrap">
+            {f.label}
+          </span>
+          <div className="flex overflow-hidden rounded-lg border border-zinc-200 bg-zinc-50 p-0.5 shadow-sm text-xs">
             {f.options.map((opt) => {
               const active = (f.value ?? '') === opt.value
               return (
                 <button
                   key={opt.value}
                   onClick={() => update(f.key, opt.value)}
-                  className={`px-3 py-1.5 font-medium transition-all duration-150 ${
-                    active ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-50 hover:text-zinc-900'
+                  className={`rounded-md px-3 py-1 font-medium transition-all duration-150 ${
+                    active
+                      ? 'bg-zinc-900 text-white shadow-sm'
+                      : 'text-zinc-500 hover:bg-white hover:text-zinc-900 hover:shadow-sm'
                   }`}
                 >
                   {opt.label}

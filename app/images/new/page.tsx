@@ -42,71 +42,93 @@ export default function NewImagePage() {
   }
 
   return (
-    <div className="max-w-lg">
-      <h1 className="mb-6 text-2xl font-semibold text-zinc-900">New Image</h1>
+    <div className="animate-fade-up max-w-lg">
+      {/* Page header */}
+      <div className="mb-6">
+        <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Images</p>
+        <h1 className="mt-0.5 text-2xl font-bold text-zinc-900">New Image</h1>
+      </div>
 
-      {error && (
-        <div className="mb-4 rounded-lg bg-red-50 p-3 text-sm text-red-700 border border-red-200">
-          {error}
-        </div>
-      )}
+      <form onSubmit={handleSubmit} className="space-y-5 rounded-xl border border-zinc-200 bg-white p-6 shadow-sm">
+        {error && (
+          <div className="flex items-start gap-2.5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+            <span className="mt-px text-red-400 shrink-0" aria-hidden="true">⚠</span>
+            <span>{error}</span>
+          </div>
+        )}
 
-      <form onSubmit={handleSubmit} className="space-y-4 rounded-xl border border-zinc-200 bg-white p-6">
-        <div>
-          <label className="mb-1 block text-sm font-medium text-zinc-700">URL</label>
+        <div className="space-y-1.5">
+          <label htmlFor="new-image-url" className="block text-sm font-medium text-zinc-700">
+            Image URL <span className="text-red-500">*</span>
+          </label>
           <input
+            id="new-image-url"
             type="url"
             value={form.url}
             onChange={(e) => update('url', e.target.value)}
             required
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200"
+            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 outline-none transition-all duration-150 placeholder:text-zinc-400 focus:border-zinc-500 focus:ring-2 focus:ring-zinc-900/10"
             placeholder="https://example.com/image.jpg"
           />
         </div>
 
-        <div>
-          <label className="mb-1 block text-sm font-medium text-zinc-700">Additional Context</label>
+        <div className="space-y-1.5">
+          <label htmlFor="new-image-context" className="block text-sm font-medium text-zinc-700">
+            Additional Context
+          </label>
+          <p className="text-xs text-zinc-400">Optional description or notes about this image.</p>
           <textarea
+            id="new-image-context"
             value={form.additional_context}
             onChange={(e) => update('additional_context', e.target.value)}
             rows={3}
-            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm outline-none focus:border-zinc-500 focus:ring-2 focus:ring-zinc-200"
+            className="w-full rounded-lg border border-zinc-300 px-3 py-2 text-sm text-zinc-900 outline-none transition-all duration-150 placeholder:text-zinc-400 focus:border-zinc-500 focus:ring-2 focus:ring-zinc-900/10 resize-none"
+            placeholder="e.g. Shows a cartoon character laughing…"
           />
         </div>
 
-        <div className="flex gap-6">
-          <label className="flex items-center gap-2 text-sm text-zinc-700">
-            <input
-              type="checkbox"
-              checked={form.is_public}
-              onChange={(e) => update('is_public', e.target.checked)}
-              className="rounded"
-            />
-            Public
-          </label>
-          <label className="flex items-center gap-2 text-sm text-zinc-700">
-            <input
-              type="checkbox"
-              checked={form.is_common_use}
-              onChange={(e) => update('is_common_use', e.target.checked)}
-              className="rounded"
-            />
-            Common Use
-          </label>
+        <div className="space-y-2">
+          <p className="text-xs font-semibold uppercase tracking-widest text-zinc-400">Visibility</p>
+          <div className="flex gap-6">
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-zinc-700">
+              <input
+                type="checkbox"
+                checked={form.is_public}
+                onChange={(e) => update('is_public', e.target.checked)}
+                className="h-4 w-4 rounded border-zinc-300 accent-zinc-900"
+              />
+              Public
+            </label>
+            <label className="flex cursor-pointer items-center gap-2.5 text-sm font-medium text-zinc-700">
+              <input
+                type="checkbox"
+                checked={form.is_common_use}
+                onChange={(e) => update('is_common_use', e.target.checked)}
+                className="h-4 w-4 rounded border-zinc-300 accent-zinc-900"
+              />
+              Common Use
+            </label>
+          </div>
         </div>
 
-        <div className="flex gap-3 pt-2">
+        <div className="flex gap-3 border-t border-zinc-100 pt-4">
           <button
             type="submit"
             disabled={loading}
-            className="rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition-colors duration-150 hover:bg-zinc-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
+            {loading && (
+              <span
+                className="inline-block h-3.5 w-3.5 rounded-full border-2 border-white/30 border-t-white animate-spin"
+                aria-hidden="true"
+              />
+            )}
             {loading ? 'Creating…' : 'Create Image'}
           </button>
           <button
             type="button"
             onClick={() => router.back()}
-            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-50"
+            className="rounded-lg border border-zinc-200 px-4 py-2 text-sm font-medium text-zinc-600 transition-colors duration-150 hover:bg-zinc-50"
           >
             Cancel
           </button>
